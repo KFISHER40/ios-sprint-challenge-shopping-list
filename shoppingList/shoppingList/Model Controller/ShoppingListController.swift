@@ -6,10 +6,9 @@
 //  Copyright © 2019 Lisa Fisher. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 class ShoppingListController {
-    var Items: [ShoppingItem] {
         var itemNames = [
             ShoppingItem(name: "Apple", imageName: "apple"),
             ShoppingItem(name: "Grapes", imageName: "grapes"),
@@ -19,15 +18,7 @@ class ShoppingListController {
             ShoppingItem(name: "Soda", imageName: "soda"),
             ShoppingItem(name: "Strawberries", imageName: "strawberries"),
         ]
-        
-        let wasItemAdded = UserDefaults.standard.bool(forKey: String.wasItemAddedKey)
-        if wasItemAdded {
-            itemNames.append(ShoppingItem(name: "", imageName: ""))
-        }
 
-        return itemNames
-
-    }
 
     private(set) var items: [ShoppingItem] = []
 
@@ -37,7 +28,7 @@ class ShoppingListController {
 
         return documents.appendingPathComponent("items.plist")
     }
-
+    
     init() {
         loadFromPersistentStore()
     }
@@ -48,14 +39,6 @@ class ShoppingListController {
         items.append(item)
         saveToPersistentStore()
         return item
-    }
-
-    func listItems() -> String {
-        var output = ""
-        for item in items {
-            output += "\(item.name) has been added to the list"
-        }
-        return output
     }
 
     private func saveToPersistentStore() {

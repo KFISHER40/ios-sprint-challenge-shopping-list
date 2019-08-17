@@ -6,50 +6,50 @@
 //  Copyright © 2019 Lisa Fisher. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ShoppingListController {
-    var planets: [ShoppingItem] {
+    var Items: [ShoppingItem] {
         var itemNames = [
-            ShoppingItem(name: "Apple", itemAdded: false),
-            ShoppingItem(name: "Grapes", itemAdded: false),
-            ShoppingItem(name: "Milk", itemAdded: false),
-            ShoppingItem(name: "Muffin", itemAdded: false),
-            ShoppingItem(name: "Popcorn", itemAdded: false),
-            ShoppingItem(name: "Soda", itemAdded: false),
-            ShoppingItem(name: "Strawberries", itemAdded: false),
+            ShoppingItem(name: "Apple", imageName: "apple"),
+            ShoppingItem(name: "Grapes", imageName: "grapes"),
+            ShoppingItem(name: "Milk", imageName: "milk"),
+            ShoppingItem(name: "Muffin", imageName: "muffin"),
+            ShoppingItem(name: "Popcorn", imageName: "popcorn"),
+            ShoppingItem(name: "Soda", imageName: "soda"),
+            ShoppingItem(name: "Strawberries", imageName: "strawberries"),
         ]
         
         let wasItemAdded = UserDefaults.standard.bool(forKey: String.wasItemAddedKey)
         if wasItemAdded {
-            itemNames.append(ShoppingItem(name: "", itemAdded: true))
+            itemNames.append(ShoppingItem(name: "", imageName: ""))
         }
-        
+
         return itemNames
-        
+
     }
-    
+
     private(set) var items: [ShoppingItem] = []
-    
+
     private var persistentFileURL: URL? {
         let fileManager = FileManager.default
         guard let documents = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return nil }
-        
+
         return documents.appendingPathComponent("items.plist")
     }
-    
+
     init() {
         loadFromPersistentStore()
     }
-    
-    @discardableResult func addItem(named name: String, withItem itemAdded: Bool) -> ShoppingItem {
-        
-        let item = ShoppingItem(name: name, itemAdded: itemAdded)
+
+    @discardableResult func addItem(named name: String, withImage imageName: String, itemAdded: Bool) -> ShoppingItem {
+
+        let item = ShoppingItem(name: name, imageName: imageName)
         items.append(item)
         saveToPersistentStore()
         return item
     }
-    
+
     func listItems() -> String {
         var output = ""
         for item in items {
@@ -57,10 +57,10 @@ class ShoppingListController {
         }
         return output
     }
-    
+
     private func saveToPersistentStore() {
             guard let url = persistentFileURL else { return }
-            
+
             do {
                 let encoder = PropertyListEncoder()
                 let data = try encoder.encode(items)
@@ -69,11 +69,11 @@ class ShoppingListController {
                 print("Error saving items data: \(error)")
             }
         }
-    
+
     private func loadFromPersistentStore() {
         let fileManager = FileManager.default
         guard let url = persistentFileURL, fileManager.fileExists(atPath: url.path) else { return }
-        
+
         do {
             let data = try Data(contentsOf: url)
             let decoder = PropertyListDecoder()
@@ -82,4 +82,6 @@ class ShoppingListController {
             print("Error loading items data: \(error)")
         }
     }
+
+
 }

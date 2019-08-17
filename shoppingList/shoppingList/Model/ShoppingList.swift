@@ -6,15 +6,17 @@
 //  Copyright © 2019 Lisa Fisher. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct ShoppingItem: Codable {
     
     var name: String
+    var image: UIImage
     var itemAdded: Bool
     
-    init(name: String, itemAdded: Bool) {
+    init(name: String, imageName: String) {
         self.name = name
-        self.itemAdded = itemAdded
+        self.image = UIImage(named: imageName)!
     }
+
 }

@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import Foundation
 
 class ShoppingListCollectionViewController: UICollectionViewController {
     
     let listController = ShoppingListController()
-
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+     
 
     }
-
     /*
     // MARK: - Navigation
 
@@ -26,7 +28,7 @@ class ShoppingListCollectionViewController: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -36,12 +38,11 @@ class ShoppingListCollectionViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ShoppingListCell", for: indexPath) as? ShoppingListCollectionViewCell else { return UICollectionViewCell()}
-    
         // Configure the cell
     
         
         let item = listController.items[indexPath.item]
-        cell.imageView.image = item.image
+//        cell.imageView.image = UIImage(named: imageToLoad)
         cell.textLabel.text = item.name
         
         return cell

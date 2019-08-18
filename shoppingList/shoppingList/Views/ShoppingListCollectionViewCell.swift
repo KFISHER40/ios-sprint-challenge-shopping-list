@@ -14,4 +14,8 @@ class ShoppingListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var textLabel: UILabel!
     
     
+    
+    
 }
+
+

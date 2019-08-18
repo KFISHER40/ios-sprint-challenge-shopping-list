@@ -9,12 +9,21 @@
 import UIKit
 
 class ShoppingListDetailViewController: UIViewController {
-
+    
+    @IBOutlet weak var labelText: UILabel!
+    
+    @IBOutlet weak var nameTextField: UITextField!
+    
+    @IBOutlet weak var addressTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+            
+        }
+    
+    @IBAction func sendOrderButtonPressed(_ sender: Any) {
     }
+}
+
     
 
     /*
@@ -27,4 +36,4 @@ class ShoppingListDetailViewController: UIViewController {
     }
     */
 
-}
+

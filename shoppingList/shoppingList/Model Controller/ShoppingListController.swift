@@ -7,18 +7,27 @@
 //
 
 import Foundation
+import UIKit
 
 class ShoppingListController {
-        var itemNames = [
-            ShoppingItem(name: "Apple", imageName: "apple"),
-            ShoppingItem(name: "Grapes", imageName: "grapes"),
-            ShoppingItem(name: "Milk", imageName: "milk"),
-            ShoppingItem(name: "Muffin", imageName: "muffin"),
-            ShoppingItem(name: "Popcorn", imageName: "popcorn"),
-            ShoppingItem(name: "Soda", imageName: "soda"),
-            ShoppingItem(name: "Strawberries", imageName: "strawberries"),
+    var itemNames: [ShoppingItem] {
+        var temp = [
+            ShoppingItem(name: "apple", itemAdded: false),
+            ShoppingItem(name: "grapes", itemAdded: false),
+            ShoppingItem(name: "milk", itemAdded: false),
+            ShoppingItem(name: "muffin", itemAdded: false),
+            ShoppingItem(name: "popcorn", itemAdded: false),
+            ShoppingItem(name: "soda", itemAdded: false),
+            ShoppingItem(name: "strawberries", itemAdded: false),
         ]
 
+    let wasItemAddedKey = UserDefaults.standard.bool(forKey: String.wasItemAddedKey)
+    if wasItemAddedKey {
+    temp.append(ShoppingItem(name: "", itemAdded: false))
+    }
+    
+    return temp
+    }
 
     private(set) var items: [ShoppingItem] = []
 
@@ -33,9 +42,9 @@ class ShoppingListController {
         loadFromPersistentStore()
     }
 
-    @discardableResult func addItem(named name: String, withImage imageName: String, itemAdded: Bool) -> ShoppingItem {
+    @discardableResult func addItem(named name: String, withItem itemAdded: Bool) -> ShoppingItem {
 
-        let item = ShoppingItem(name: name, imageName: imageName)
+        let item = ShoppingItem(name: name, itemAdded: itemAdded)
         items.append(item)
         saveToPersistentStore()
         return item
